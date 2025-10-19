@@ -1,0 +1,1 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=C:\Users\wan\.espressif\python_env\idf6.0_py3.11_env\Scripts\python.exe -DESP_PLATFORM=1 -DCCACHE_ENABLE=1 C:\Users\wan\Downloads\Week-12-FreeRTOS_Worksheets-1\04-semaphores\practice\lab2-mutex-critical-sections\lab2

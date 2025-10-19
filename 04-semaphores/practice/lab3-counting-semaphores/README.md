@@ -412,11 +412,11 @@ void app_main(void) {
 ## 📋 สรุปผลการทดลอง
 
 ### สิ่งที่เรียนรู้:
-- [ ] หลักการทำงานของ Counting Semaphore
-- [ ] การจัดการ Resource Pool
-- [ ] Load Balancing และ Resource Contention
-- [ ] Performance Monitoring และ Statistics
-- [ ] Rate Limiting Applications
+- [✔] หลักการทำงานของ Counting Semaphore
+- [✔] การจัดการ Resource Pool
+- [✔] Load Balancing และ Resource Contention
+- [✔] Performance Monitoring และ Statistics
+- [✔] Rate Limiting Applications
 
 ### APIs ที่ใช้:
 - `xSemaphoreCreateCounting()` - สร้าง Counting Semaphore

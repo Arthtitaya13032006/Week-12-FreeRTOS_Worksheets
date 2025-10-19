@@ -366,10 +366,21 @@ xTaskCreatePinnedToCore(low_priority_task, "LowPrio", 3072, NULL, 1, NULL, 1);  
 ## คำถามสำหรับวิเคราะห์
 
 1. Priority ไหนทำงานมากที่สุด? เพราะอะไร?
+ตอบ Task ที่มี Priority สูงสุด จะทำงานมากที่สุด เพราะ FreeRTOS (และ OS ส่วนใหญ่) จะให้ CPU ทำงานกับ task ที่มี priority สูงสุดซึ่ง “ready” อยู่ก่อนเสมอ
 2. เกิด Priority Inversion หรือไม่? จะแก้ไขได้อย่างไร?
+ตอบ Priority Inversion (การกลับลำดับความสำคัญ) คือสถานการณ์ที่ Task ความสำคัญสูง (High) ต้องรอ task ความสำคัญต่ำ (Low)เพราะ Low กำลังถือทรัพยากร (mutex) ที่ High ต้องใช้ ทำให้ระบบดูเหมือน “High priority ถูกขัดขวางโดย Low priority”
+แนวทางแก้ไข ใช้ Mutex (ไม่ใช่ Semaphore ปกติ) เพราะ mutex มี Priority Inheritance Mechanism = เมื่อ Low ถือ mutex อยู่ ระบบจะ “ยก priority ของ Low ให้เท่ากับ High” ชั่วคราว เพื่อให้ Low ทำงานเสร็จเร็วและคืนทรัพยากรให้ High
 3. Tasks ที่มี priority เดียวกันทำงานอย่างไร?
+ตอบ ระบบจะใช้วิธี time slicing (แบ่งเวลา CPU) แต่ละ task ที่มี priority เดียวกันจะได้ CPU สลับกันคนละช่วง (time slice) ทำให้ทุก task priority เดียวกัน “ได้ทำงานเท่า ๆ กัน” โดยไม่แย่งกันถาวร
 4. การเปลี่ยน Priority แบบ dynamic ส่งผลอย่างไร?
+ตอบ FreeRTOS อนุญาตให้เปลี่ยน priority ของ task ระหว่างรันได้ด้วย vTaskPrioritySet() 
+ผลที่เกิดขึ้น Task นั้นจะ เปลี่ยนลำดับในการได้ CPU ทันที
+          ถ้าปรับขึ้น → มันอาจแย่ง CPU จาก task อื่น
+          ถ้าปรับลง → มันอาจต้องรอ task อื่นทำงานก่อน
 5. CPU utilization ของแต่ละ priority เป็นอย่างไร?
+ตอบ Task ที่มี priority สูงสุด จะได้ใช้ CPU มากที่สุด 
+    ถ้า task สูงสุด “ready” ตลอดเวลา → มันจะกิน CPU 100%
+    Task ที่ priority ต่ำกว่า → ใช้ CPU เฉพาะตอนที่สูงกว่าหยุด (delay/block)
 
 ## ผลการทดลองที่คาดหวัง
 

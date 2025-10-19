@@ -453,10 +453,18 @@ void dynamic_stack_monitor(TaskHandle_t task_handle, const char* task_name)
 ## คำถามสำหรับวิเคราะห์
 
 1. Task ไหนใช้ stack มากที่สุด? เพราะอะไร?
+ตอบ Task ที่มีการคำนวณหรือเรียกฟังก์ชันซ้อนหลายชั้น (nested call) จะใช้ stack มากที่สุด เพราะทุกครั้งที่เรียกฟังก์ชันจะต้องเก็บตัวแปรภายในและข้อมูลการเรียกซ้ำไว้บน stack
 2. การใช้ heap แทน stack มีข้อดีอย่างไร?
+ตอบ Heap สามารถจัดสรรหน่วยความจำแบบ dynamic (ยืดหยุ่นได้)
 3. Stack overflow เกิดขึ้นเมื่อไหร่และทำอย่างไรป้องกัน?
+ตอบ Stack overflow เกิดขึ้นเมื่อ task ใช้ stack เกินขนาดที่กำหนดใน xTaskCreate()
+วิธีป้องกัน เพิ่ม stack size ให้พอเหมาะใน xTaskCreate() เปิดใช้ configCHECK_FOR_STACK_OVERFLOW ใน FreeRTOSConfig.h
+ใช้ uxTaskGetStackHighWaterMark() เพื่อตรวจสอบปริมาณ stack ที่เหลือ
 4. การตั้งค่า stack size ควรพิจารณาจากอะไร?
+ตอบ ปริมาณตัวแปร local ที่ใช้ใน task ความลึกของการเรียกฟังก์ชัน (call depth) การใช้ library เช่น printf() ที่ใช้ stack เยอะ
+Margin ปลอดภัยอย่างน้อย 20–30% ของที่วัดได้จาก High Water Mark
 5. Recursion ส่งผลต่อ stack usage อย่างไร?
+ตอบ Recursion (การเรียกฟังก์ชันซ้ำตัวเอง) จะ ใช้ stack เพิ่มขึ้นทุกระดับของการเรียกซ้ำ
 
 ## ผลการทดลองที่คาดหวัง
 

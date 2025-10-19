@@ -76,13 +76,13 @@
 ## 🔄 งานที่ยังต้องทำ (ต่อเนื่อง)
 
 ### หัวข้อ 02-08: สร้างใบงานสำหรับหัวข้อที่เหลือ
-- [ ] 02-tasks-and-scheduling (3 labs)
-- [ ] 03-queues (3 labs)  
-- [ ] 04-semaphores (3 labs)
-- [ ] 05-timers (3 labs)
-- [ ] 06-event-groups (3 labs)
-- [ ] 07-memory-management (3 labs)
-- [ ] 08-esp-idf-specific (3 labs)
+- [✔] 02-tasks-and-scheduling (3 labs)
+- [✔] 03-queues (3 labs)  
+- [✔] 04-semaphores (3 labs)
+- [✔] 05-timers (3 labs)
+- [✔] 06-event-groups (3 labs)
+- [✔] 07-memory-management (3 labs)
+- [✔] 08-esp-idf-specific (3 labs)
 
 ### เป้าหมายสุดท้าย: 54 ใบงาน
 - **9 หัวข้อ × 3 labs = 27 labs**  
